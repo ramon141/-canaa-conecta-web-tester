@@ -1,5 +1,7 @@
 import time
 from os import getenv
+
+from selenium.webdriver.common.by import By
 from seleniumwire.request import Request
 from browser import Browser
 import json
@@ -12,7 +14,7 @@ def get_request_complaints(browser: Browser) -> Request | None:
     return None
 
 
-def no_location(browser: Browser):
+def no_location(browser: Browser) -> int:
     browser.driver.get(f"{getenv('HOME_PAGE')}/no-location-complaints")
     request = None
     while request is None:
@@ -23,3 +25,25 @@ def no_location(browser: Browser):
     data = json.loads(body)
 
     return len(data)
+
+
+def no_location_with_filter(browser: Browser, filter: str) -> int:
+    browser.driver.get(f"{getenv('HOME_PAGE')}/no-location-complaints")
+
+    # Espera carregar as ocorrências
+    request = None
+    while request is None:
+        request = get_request_complaints(browser)
+        time.sleep(0.5)
+
+    browser.driver.find_element(By.ID, 'search_table').send_keys(filter)
+    browser.driver.find_element(By.XPATH, '//*[@id="table-occurrences-input"]/div[2]/button').click()
+
+    time.sleep(0.5)
+
+    quant_rows = browser.driver.execute_script('''
+            const table = document.getElementsByTagName("table")[0];
+            return table.children[1].childElementCount;
+    ''')
+
+    return quant_rows
