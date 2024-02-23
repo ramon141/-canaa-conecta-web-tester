@@ -17,10 +17,11 @@ def get_request_complaints(browser: Browser) -> Request | None:
 def no_location(browser: Browser) -> int:
     browser.driver.get(f"{getenv('HOME_PAGE')}/no-location-complaints")
     request = None
-    while request is None:
+    while request is None or request.response is None:
         print("Testing occurrence")
         request = get_request_complaints(browser)
         time.sleep(0.5)
+
     body = request.response.body.decode('utf-8')
     data = json.loads(body)
 
@@ -32,10 +33,11 @@ def no_location_with_filter(browser: Browser, filter: str) -> int:
 
     # Espera carregar as ocorrências
     request = None
-    while request is None:
+    while request is None or request.response is None:
         request = get_request_complaints(browser)
         time.sleep(0.5)
 
+    time.sleep(1)
     browser.driver.find_element(By.ID, 'search_table').send_keys(filter)
     browser.driver.find_element(By.XPATH, '//*[@id="table-occurrences-input"]/div[2]/button').click()
 
