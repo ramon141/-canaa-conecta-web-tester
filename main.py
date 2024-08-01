@@ -5,10 +5,10 @@ from login import login
 from register_user import register_user
 from time import sleep
 
-# load_dotenv()
+load_dotenv()
 
 
-# browser = Browser()
-# login(browser)
-# print(register_user(browser))
+browser = Browser()
+login(browser)
+print(register_user(browser))
 # sleep(10)
