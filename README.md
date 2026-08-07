@@ -60,15 +60,16 @@ pytest test_login.py
 |---|---|---|
 | `test_controller_report_executor.py` | `test_controller_report_executor` | TC 01 (adicionar parecer), TC 02 e TC 03 (visualização pelo executor) |
 | `test_login.py` | `test_login` | TC 04 (login com credenciais válidas) |
+| `test_login.py` | `test_login_invalid_credentials` | TC 05 (login com credenciais inválidas) |
 | `test_register_user.py` | `test_register_user` | TC 06 (cadastrar novo usuário) |
+| `test_register_user.py` | `test_register_existing_user` | TC 07 (cadastrar usuário já existente) |
 | `test_occurrence_no_location.py` | `test_occurrence_no_location_with_filter` | TC 08 (filtro de busca por código) |
+| `test_occurrence_no_location.py` | `test_occurrence_no_location_with_invalid_filter` | TC 09 (busca com código inexistente) |
 | `test_dashboard.py` | `test_occurrences_open` | TC 10 (ocorrências em aberto) |
 | `test_dashboard.py` | `test_occurrence_attendance` | TC 11 (ocorrências concluídas) |
 | `test_occurrence_no_location.py` | `test_occurrence_no_location` | TC 12 (ocorrências sem localização) |
 
-Os casos de fluxo de exceção — TC 05 (login com credenciais inválidas), TC 07
-(cadastro de usuário já existente) e TC 09 (busca por código inexistente) — foram
-especificados e executados de forma manual, não estando automatizados nesta suíte.
+Os doze casos de teste possuem função automatizada correspondente.
 
 ## Módulos auxiliares
 

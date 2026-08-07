@@ -40,9 +40,13 @@ def get_request_register_user(browser: Browser) -> Request:
     return None
     
 
-def register_user(browser: Browser) -> bool:
+def register_user(browser: Browser, user: dict = None) -> bool:
+    # Limpa o histórico para que get_request_register_user não capture
+    # a requisição de um cadastro anterior feito na mesma sessão
+    del browser.driver.requests
+
     browser.driver.get(f"{getenv('HOME_PAGE')}/userregister")
-    user = gen_fake_user()
+    user = user if user is not None else gen_fake_user()
     browser.driver.find_element(By.ID, 'username').send_keys(user["name"])
     browser.driver.find_element(By.ID, 'email').send_keys(user["email"])
     
